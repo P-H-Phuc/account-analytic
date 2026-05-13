@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_analytic_line_form_inherit_pos" model="ir.ui.view">
+        <field name="name">account.analytic.line.form.inherit.pos</field>
+        <field name="model">account.analytic.line</field>
+        <field
+            name="inherit_id"
+            ref="account.view_account_analytic_line_form_inherit_account"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='accounting']" position="after">
+                <group />
+                <group name="pos" string="Point of Sale">
+                    <field name="pos_order_line_id" options="{'no_create': True}" />
+                    <field name="pos_session_id" options="{'no_create': True}" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_tree_inherit_pos" model="ir.ui.view">
+        <field name="name">account.analytic.line.list.inherit.pos</field>
+        <field name="model">account.analytic.line</field>
+        <field
+            name="inherit_id"
+            ref="account.view_account_analytic_line_tree_inherit_account"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="pos_order_line_id" optional="hide" />
+                <field name="pos_session_id" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_analytic_line_filter_inherit_pos" model="ir.ui.view">
+        <field name="name">account.analytic.line.select.inherit.pos</field>
+        <field name="model">account.analytic.line</field>
+        <field
+            name="inherit_id"
+            ref="account.view_account_analytic_line_filter_inherit_account"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="pos_order_line_id" />
+                <field name="pos_session_id" />
+            </xpath>
+            <xpath expr="//group[@name='groupby']" position="inside">
+                <separator />
+                <filter
+                    name="group_by_pos_session"
+                    context="{'group_by': 'pos_session_id'}"
+                />
+                <separator />
+            </xpath>
+        </field>
+    </record>
+</odoo>
